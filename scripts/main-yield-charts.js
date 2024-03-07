@@ -256,12 +256,3 @@ async function drawCharts(selectedPeriod = 'max') {
   drawChartsWithData(selectedPeriod);
   updateBottomYieldDetails(dataArrays);
 }
-
-// const tabs = document.getElementsByClassName("w-tab-link")
-
-// for(let i = 0; i < tabs.length; i++) {
-//   tabs[i].onclick = async () => {drawCharts()}
-// }
-
-// google.charts.load('current', {'packages':['corechart']});
-// google.charts.setOnLoadCallback(drawCharts);
