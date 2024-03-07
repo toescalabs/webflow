@@ -154,11 +154,11 @@ var dataArrays = {
   smartConservative: { max: smartConservativeAccumDefaultDataArray, '1a': smartConservativeAccumDefaultDataArray },
   smartModerate: { max: smartModerateAccumDefaultDataArray, '1a': smartModerateAccumDefaultDataArray},
   smartRisky: { max: smartRiskyAccumDefaultDataArray, '1a': smartRiskyAccumDefaultDataArray},
-  templateTech: { max: 0, '1a': []},
-  templateGreen: { max: 0, '1a': []},
-  templateCrypto: { max: 0, '1a': []},
-  templateBonds: { max: 0, '1a': []},
-  templatesEquity: { max: 0, '1a': []},
+  templateTech: { max: [], '1a': []},
+  templateGreen: { max: [], '1a': []},
+  templateCrypto: { max: [], '1a': []},
+  templateBonds: { max: [], '1a': []},
+  templatesEquity: { max: [], '1a': []},
 };
 
 function createDataTable(dataArray) {
