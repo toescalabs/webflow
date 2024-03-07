@@ -65,7 +65,7 @@ const sleep = m => new Promise(r => setTimeout(r, m))
 
 const assignToElementIfPossible = (elementId, value) => {
   if (document.getElementById(elementId)?.textContent) {
-    document.getElementById(elementId)?.textContent = value
+    document.getElementById(elementId).textContent = value;
   }
 }
 function updateBottomYieldDetails(dataArrays) {
