@@ -210,7 +210,6 @@ const hasAnyEmptyDataArray = () => Object.values(Object.values(dataArrays)).some
 var refreshDataPending = true;
 
 async function drawCharts(selectedPeriod = 'max') {
-  console.log(hasAnyEmptyDataArray());
   if ( refreshDataPending || hasAnyEmptyDataArray()){
     refreshDataPending = false
     Promise.all([
