@@ -95,9 +95,9 @@ function updateBottomYieldDetails(dataArrays) {
   assignToElementIfPossible('template-bonds-accum-yield', getYield(dataArrays)('accumulated')('templateBonds'));
   assignToElementIfPossible('template-bonds-annual-yield', getYield(dataArrays)('annual')('templateBonds'));
   assignToElementIfPossible('template-bonds-last-yield', getYield(dataArrays)('last')('templateBonds'));
-  assignToElementIfPossible('template-equity-accum-yield', getYield(dataArrays)('accumulated')('templatesEquity'));
-  assignToElementIfPossible('template-equity-annual-yield', getYield(dataArrays)('annual')('templatesEquity'));
-  assignToElementIfPossible('template-equity-last-yield', getYield(dataArrays)('last')('templatesEquity'));
+  assignToElementIfPossible('template-equity-accum-yield', getYield(dataArrays)('accumulated')('templateEquity'));
+  assignToElementIfPossible('template-equity-annual-yield', getYield(dataArrays)('annual')('templateEquity'));
+  assignToElementIfPossible('template-equity-last-yield', getYield(dataArrays)('last')('templateEquity'));
 }
 
 const calculateAccumYieldsFor = (dataArray, initialMonth = 0) => {
@@ -158,7 +158,7 @@ var dataArrays = {
   templateGreen: { max: [], '1a': []},
   templateCrypto: { max: [], '1a': []},
   templateBonds: { max: [], '1a': []},
-  templatesEquity: { max: [], '1a': []},
+  templateEquity: { max: [], '1a': []},
 };
 
 function createDataTable(dataArray) {
@@ -193,7 +193,7 @@ function drawChartsWithData() {
   drawChart('linechart_material-smart-template-green', dataArrays.templateGreen.max, options);
   drawChart('linechart_material-smart-template-crypto', dataArrays.templateCrypto.max, options);
   drawChart('linechart_material-smart-template-bonds', dataArrays.templateBonds.max, options);
-  drawChart('linechart_material-smart-template-equity', dataArrays.templatesEquity.max, options);
+  drawChart('linechart_material-smart-template-equity', dataArrays.templateEquity.max, options);
 
 }
 const amountByPeriodTime = {
@@ -241,8 +241,8 @@ async function drawCharts(selectedPeriod = 'max') {
         dataArrays.templateCrypto['1a'] = results[6].length ? calculateAccumYieldsFor(results[6], getIndexOfDataArrayBy('1a')(results[6])) : [1];
         dataArrays.templateBonds.max = results[7].length ? calculateAccumYieldsFor(results[7]) : [1];
         dataArrays.templateBonds['1a'] = results[7].length ? calculateAccumYieldsFor(results[7], getIndexOfDataArrayBy('1a')(results[7])) : [1];
-        dataArrays.templatesEquity.max = results[8].length ? calculateAccumYieldsFor(results[8]) : [1];
-        dataArrays.templatesEquity['1a'] = results[8].length ? calculateAccumYieldsFor(results[8], getIndexOfDataArrayBy('1a')(results[8])) : [1];
+        dataArrays.templateEquity.max = results[8].length ? calculateAccumYieldsFor(results[8]) : [1];
+        dataArrays.templateEquity['1a'] = results[8].length ? calculateAccumYieldsFor(results[8], getIndexOfDataArrayBy('1a')(results[8])) : [1];
 
       }).then(() => {
         drawChartsWithData(selectedPeriod);
