@@ -4,12 +4,6 @@ myHeaders.append("Content-Type", "application/json");
 
 const DEFAULT_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/';
 
-const defaultData = JSON.stringify({
-  "year": "2023",
-  "month": "01",
-  "risk": 7,
-});
-
 const getYieldsFor = (
   { year,
     month,
@@ -24,7 +18,7 @@ const getYieldsFor = (
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: {...defaultData, year, month, risk, typeUniverse},
+    body: JSON.stringify({ year, month, risk, typeUniverse}),
     redirect: 'follow'
   };
   return fetch(url, requestOptions)
@@ -54,5 +48,6 @@ const updateSelectorWithYieldFrom = async (
   const yields = jsonResponse.yields;
   const lastTwelveYields = yields.slice(-12);
   const accumulatedYield = getTotalYield(lastTwelveYields);
-  document.getElementById(selectorId).textContent = String(accumulatedYield);
+  const yieldAsPercentage = ((accumulatedYield - 1) * 100).toFixed(2) + '%';
+  document.getElementById(selectorId).textContent = String(yieldAsPercentage);
 };
