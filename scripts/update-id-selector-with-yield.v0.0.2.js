@@ -34,7 +34,7 @@ const updateSelectorWithYieldFrom = async (
   month = '01',
   risk = 7,
   typeUniverse,
-  portfolio
+  portfolioType
 }
 ) => {
   document.getElementById(selectorId).textContent = '...';
@@ -42,12 +42,12 @@ const updateSelectorWithYieldFrom = async (
     year,
     month,
     risk,
-    portfolio,
+    portfolioType,
     typeUniverse,
   });
   const yields = jsonResponse.yields;
   const lastTwelveYields = yields.slice(-12);
   const accumulatedYield = getTotalYield(lastTwelveYields);
-  const yieldAsPercentage = ((accumulatedYield - 1) * 100).toFixed(2) + '%';
+  const yieldAsPercentage = ((accumulatedYield - 1) * 100).toFixed(2);
   document.getElementById(selectorId).textContent = String(yieldAsPercentage);
 };
