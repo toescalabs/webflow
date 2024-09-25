@@ -14,7 +14,8 @@ const getYieldsFor = (
   { year,
     month,
     risk,
-    portfolioType
+    portfolioType,
+    typeUniverse,
 }
 ) => {
   var routeParam = 'recommendationYields';
@@ -23,7 +24,7 @@ const getYieldsFor = (
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: {...defaultData, year, month, risk},
+    body: {...defaultData, year, month, risk, typeUniverse},
     redirect: 'follow'
   };
   return fetch(url, requestOptions)
