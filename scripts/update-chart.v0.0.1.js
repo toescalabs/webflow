@@ -105,6 +105,8 @@ const calculateAccumulatedYieldsFrom = (yields) => {
 return newYields;
 }
 
+const chartDataBuffer = {}
+
 const updateAllYieldsInfoFor = async (
   {
     chartId,
@@ -129,6 +131,12 @@ const updateAllYieldsInfoFor = async (
   document.getElementById(lastMonthTextId).textContent = String(asPercentage(lastMonthYield + 1));
   document.getElementById(lastYearTextId).textContent = String(asPercentage(lastYearYield));
   document.getElementById(historicTextId).textContent = String(asPercentage(historicYield));
-  console.log(chartId, accumulatedYields, options)
+  chartDataBuffer[chartId] = accumulatedYields;
   drawChart(chartId, accumulatedYields, options);
+}
+
+const drawAllChartsFromBuffer = () => {
+  Object.keys(chartDataBuffer).forEach((chartId) => {
+    drawChart(chartId, chartDataBuffer[chartId], options);
+  });
 }
