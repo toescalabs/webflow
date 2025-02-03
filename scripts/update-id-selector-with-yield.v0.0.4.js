@@ -20,6 +20,11 @@ const harryIpsaResponseAsJson = {
         "Perfil": 6.0,
         "rentabilidadMesCLP": 0.0360834,
         "mes": "2024-12"
+    },
+    {
+        "Perfil": 6.0,
+        "rentabilidadMesCLP": 0.05930548263,
+        "mes": "2025-01"
     }
   ]
 }
