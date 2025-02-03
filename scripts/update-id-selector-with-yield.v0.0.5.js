@@ -32,7 +32,7 @@ const harryIpsaResponseAsJson = {
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-const DEFAULT_URL = '`https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/';
+const DEFAULT_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/';
 
 const getYieldsFor = (
   { year,
