@@ -28,37 +28,31 @@ const nationalStocksYields = {
   ]
 }
 
-const BASE_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod';
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-const buildQueryString = (queryObject) => Object.entries(queryObject)
-  .filter(([_, value]) => !!value)
-  .map(([key, value]) => `${key}=${value}`)
-  .join('&');
+const DEFAULT_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/';
 
-const buildPathBy = (portfolioType) => ({
-  harryIpsa: 'harryIpsaYields',
-  wallet: 'walletYields',
-  smart: 'recommendationYields',
-}[portfolioType]);
-
-const fetchDataApi = ({
-  portfolioType,
+const getYieldsFor = ({
   year,
   month,
   risk,
+  portfolioType,
   typeUniverse
 }) => {
-  if (portfolioType === 'harryIpsa') return nationalStocksYields; // TODO: fetch this from the API
-
-  const url = `${BASE_URL}/${buildPathBy(portfolioType)}?${buildQueryString({ year, month, risk, typeUniverse })}`
-
+  var routeParam = 'recommendationYields';
+  if (portfolioType === 'harryIpsa') return nationalStocksYields;
+  if (portfolioType === 'wallet') routeParam = 'walletYields';
+  const url = `${DEFAULT_URL}${routeParam}`;
   const requestOptions = {
-    method: 'GET',
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify({ year, month, risk, typeUniverse}),
     redirect: 'follow'
   };
-
-  return fetch(url, requestOptions).then(response => response.json())
-}
+  return fetch(url, requestOptions)
+    .then(response => response.json())
+};
 
 const MOTNHS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago','Sept', 'Oct', 'Nov', 'Dic']
 
@@ -102,13 +96,13 @@ const getYieldsArrayFor = async ({
   year= '2023',
   month='01',
   risk=1,
-  portfolio,
+  portfolioType,
   typeUniverse,
-}) => fetchDataApi({
+}) => getYieldsFor({
   year,
   month,
   risk,
-  portfolio,
+  portfolioType,
   typeUniverse
 }).then(mapAsDataArray);
 
@@ -272,15 +266,15 @@ const drawCharts = async (selectedPeriod = 'max') => {
   if (refreshDataPending || hasAnyEmptyDataArray()){
     refreshDataPending = false
     Promise.all([
-      getYieldsArrayFor({ portfolio: 'wallet' }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 2 }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 4 }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 6 }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 6, typeUniverse: 'techThematicUniverse' }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 6, typeUniverse: 'greenThematicUniverse' }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 6, typeUniverse: 'cryptoThematicUniverse' }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk: 1 }),
-      getYieldsArrayFor({ portfolio: 'recommendation', risk:  6})
+      getYieldsArrayFor({ portfolioType: 'wallet' }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 2 }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 4 }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 6 }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 6, typeUniverse: 'techThematicUniverse' }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 6, typeUniverse: 'greenThematicUniverse' }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 6, typeUniverse: 'cryptoThematicUniverse' }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk: 1 }),
+      getYieldsArrayFor({ portfolioType: 'recommendation', risk:  6})
       ]).then((results) => {
         dataArrays.wallet.max = results[0].length ? calculateAccumYieldsFor(results[0]) : walletAccumDefaultDataArray;
         dataArrays.wallet['1a'] = results[0].length ? calculateAccumYieldsFor(results[0], getIndexOfDataArrayBy('1a')(results[0])) : walletAccumDefaultDataArray;
