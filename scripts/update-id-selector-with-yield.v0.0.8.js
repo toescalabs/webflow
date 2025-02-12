@@ -28,37 +28,31 @@ const nationalStocksYields = {
   ]
 }
 
-const BASE_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod';
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-const buildQueryString = (queryObject) => Object.entries(queryObject)
-  .filter(([_, value]) => !!value)
-  .map(([key, value]) => `${key}=${value}`)
-  .join('&');
+const DEFAULT_URL = 'https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/';
 
-const buildPathBy = (portfolioType) => ({
-  harryIpsa: 'harryIpsaYields',
-  wallet: 'walletYields',
-  smart: 'recommendationYields',
-}[portfolioType]);
-
-const fetchDataApi = ({
-  portfolioType,
+const getYieldsFor = ({
   year,
   month,
   risk,
+  portfolioType,
   typeUniverse
 }) => {
-  if (portfolioType === 'harryIpsa') return nationalStocksYields; // TODO: fetch this from the API
-
-  const url = `${BASE_URL}/${buildPathBy(portfolioType)}?${buildQueryString({ year, month, risk, typeUniverse })}`
-
+  var routeParam = 'recommendationYields';
+  if (portfolioType === 'harryIpsa') return nationalStocksYields;
+  if (portfolioType === 'wallet') routeParam = 'walletYields';
+  const url = `${DEFAULT_URL}${routeParam}`;
   const requestOptions = {
-    method: 'GET',
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify({ year, month, risk, typeUniverse}),
     redirect: 'follow'
   };
-
-  return fetch(url, requestOptions).then(response => response.json())
-}
+  return fetch(url, requestOptions)
+    .then(response => response.json())
+};
 
 const getTotalYield = (yields, key) => yields.reduce((accYield, { [key]: rentabilidadMes }) => (1 + rentabilidadMes) * accYield , 1);
 
@@ -75,12 +69,12 @@ const updateSelectorWithYields = async (
 ) => {
   document.getElementById(selectorId).textContent = '...';
 
-  const data = await fetchDataApi({
-    portfolioType,
+  const data = await getYieldsFor({
     year,
     month,
     risk,
-    typeUniverse
+    portfolioType,
+    typeUniverse,
   });
 
   const yields = data.yields;
