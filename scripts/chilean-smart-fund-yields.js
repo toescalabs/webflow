@@ -1,4 +1,4 @@
-const nationalStocksYields = {
+const chileanSmartFundYields = {
   "yields": [
     {
       "Perfil": 6.0,
