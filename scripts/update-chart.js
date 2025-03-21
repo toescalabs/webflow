@@ -58,19 +58,19 @@ const getYieldsFor = ({
 };
 const numberToPercent = (number) => ((number) * 100).toFixed(2) + '%';
 
-const mapExtractingPercentagesWithTooltipInfo = (accumulatedYields, key) => accumulatedYields.
-map(
-  (data, index)=> {
-    const [year, month] = data.dateInfo.split('-');
-    const monthString = MONTHS[Number(month) - 1];
-    return [
-      `${monthString} ${year}`,
-      (data[key] - 1) * 100,
-      `Rentabilidad acumulada: ${numberToPercent(data[key] - 1)} \n
-        Rentabilidad mensual: ${numberToPercent((data[key] / (accumulatedYields[index - 1]?.[key] ?? 1 )) - 1)}`,
-    ]
-  }
-)
+const mapExtractingPercentagesWithTooltipInfo = (accumulatedYields, key) => accumulatedYields
+  .map(
+    (data, index)=> {
+      const [year, month] = data.dateInfo.split('-');
+      const monthString = MONTHS[Number(month) - 1];
+      return [
+        `${monthString} ${year}`,
+        (data[key] - 1) * 100,
+        `Rentabilidad acumulada: ${numberToPercent(data[key] - 1)} \n
+          Rentabilidad mensual: ${numberToPercent((data[key] / (accumulatedYields[index - 1]?.[key] ?? 1 )) - 1)}`,
+      ]
+    }
+  )
 
 const createDataTable = (key) => (accumulatedYields) => {
   var dataTable = new google.visualization.DataTable();
