@@ -44,7 +44,7 @@ const getYieldsFor = ({
   typeUniverse
 }) => {
   var routeParam = 'recommendationYields';
-  if (portfolioType === 'harryIpsa') return chileanSmartFundYields;
+  if (portfolioType === 'harryIpsa') routeParam = 'nationalStocksYields';
   if (portfolioType === 'wallet') routeParam = 'walletYields';
   const url = `${DEFAULT_URL}${routeParam}`;
   const requestOptions = {
