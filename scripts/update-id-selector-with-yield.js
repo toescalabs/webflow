@@ -1,5 +1,3 @@
-import { chileanSmartFundYields } from "https://cdn.jsdelivr.net/gh/toescalabs/webflow@refactor/avoid-versions/scripts/chilean-smart-fund-yields.js";
-
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
@@ -13,13 +11,14 @@ const getYieldsFor = ({
   typeUniverse
 }) => {
   var routeParam = 'recommendationYields';
-  if (portfolioType === 'harryIpsa') return chileanSmartFundYields;
+  if (portfolioType === 'harryIpsa') routeParam = 'nationalStocksYields';
   if (portfolioType === 'wallet') routeParam = 'walletYields';
   const url = `${DEFAULT_URL}${routeParam}`;
+  const startDate = `${year}-${month}`;
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: JSON.stringify({ year, month, risk, typeUniverse}),
+    body: JSON.stringify({ year, month, risk, typeUniverse, 'start-yyyy-mm': startDate}),
     redirect: 'follow'
   };
   return fetch(url, requestOptions)

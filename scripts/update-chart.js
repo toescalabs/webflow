@@ -1,5 +1,3 @@
-import { chileanSmartFundYields } from "https://cdn.jsdelivr.net/gh/toescalabs/webflow@refactor/avoid-versions/scripts/chilean-smart-fund-yields.js";
-
 google.charts.load('current', {'packages':['corechart']});
 
 
@@ -111,8 +109,8 @@ const calculateAccumulatedYieldsFrom = (yields) => {
     const previousYieldUSD = acc.length ? acc.at(-1).accYieldUSD : 1;
     return acc.concat([
       {
-        accYieldCLP: previousYieldCLP * ((currentYieldData.rentabilidadMesCLP ?? currentYieldData.rentabilidadMes) + 1),
-        accYieldUSD: previousYieldUSD * ((currentYieldData.rentabilidadMesUSD ?? currentYieldData.rentabilidadMes) + 1),
+        accYieldCLP: previousYieldCLP * ((currentYieldData.rentabilidadMesCLP ?? currentYieldData.rentabilidadMes ?? 0) + 1),
+        accYieldUSD: previousYieldUSD * ((currentYieldData.rentabilidadMesUSD ?? currentYieldData.rentabilidadMes ?? 0) + 1),
         dateInfo: currentYieldData.mes
       }
     ]);
@@ -138,8 +136,8 @@ const updateAllYieldsInfoFor = async (
     typeUniverse
   }
 ) => {
-  const clpKey = portfolioType === 'wallet' ? 'rentabilidadMesCLP' : 'rentabilidadMesCLP';
-  const usdKey = portfolioType === 'wallet' ? 'rentabilidadMesUSD' :'rentabilidadMesUSD';
+  const clpKey = 'rentabilidadMesCLP';
+  const usdKey = 'rentabilidadMesUSD';
   const currencyKey = displayCurrency === 'CLP' ? clpKey : usdKey;
   const response = await getYieldsFor({
     portfolioType,
