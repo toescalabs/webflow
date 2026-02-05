@@ -1,0 +1,37 @@
+/* contenido del detalle del blog */
+
+#holdo-post-content h2,
+#holdo-post-content h3,
+#holdo-post-content h4 {
+    font-weight: 300;
+    line-height: 140%;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+#holdo-post-content h1 strong,
+#holdo-post-content h2 strong,
+#holdo-post-content h3 strong,
+#holdo-post-content h4 strong,
+#holdo-post-content h5 strong,
+#holdo-post-content h6 strong {
+    font-weight: 300 !important;
+}
+#holdo-post-content h2 {
+		margin-top: 40px;
+    font-size: 32px;
+}
+#holdo-post-content h3 {
+    font-size: 28px;
+}
+#holdo-post-content h4 {
+    font-size: 26px;
+}
+#holdo-post-content p {
+    margin-bottom: 16px;
+}
+#holdo-post-content a {
+    color: #17A24F;
+}
+#holdo-post-content a:hover {
+    text-decoration: underline;
+}
