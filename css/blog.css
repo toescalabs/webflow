@@ -1,5 +1,4 @@
-/* contenido del detalle del blog */
-
+/* CSS blog post-content */
 #holdo-post-content h2,
 #holdo-post-content h3,
 #holdo-post-content h4 {
@@ -17,7 +16,7 @@
     font-weight: 300 !important;
 }
 #holdo-post-content h2 {
-		margin-top: 40px;
+	margin-top: 40px;
     font-size: 32px;
 }
 #holdo-post-content h3 {
