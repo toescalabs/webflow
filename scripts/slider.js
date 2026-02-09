@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentIndex === index) return;
         currentIndex = index;
         updateSlider();
-        // Reset the timer so the user has time to view the chosen slide
+        // Reset the timer
         startAutoPlay();
     }
 

@@ -20,7 +20,7 @@
     display: block;
     height: 100%;
     width: 0%;
-    background: var(--hld-primary-color, #25D16A);
+    background: var(--hld-primary-color, #25D16A); /* primary color */
     border-radius: 6px;
 }
 .hld__sliders-dots .dot.active span {
