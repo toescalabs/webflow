@@ -1,0 +1,29 @@
+/* slider dots */
+/* slider.js is required */
+/* Use :root { --hld-primary-color } to change the primary color */
+.hld__sliders-dots .dot {
+    width: 8px;
+    height: 8px;
+    background: #ECEDF2;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: width 0.4s ease, border-radius 0.4s ease, background 0.4s ease;
+}
+.hld__sliders-dots .dot.active {
+    width: 40px;
+    border-radius: 8px;
+    background: #ECEDF2;
+}
+.hld__sliders-dots .dot span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--hld-primary-color, #25D16A);
+    border-radius: 6px;
+}
+.hld__sliders-dots .dot.active span {
+    width: 100%;
+    transition: width linear;
+}
