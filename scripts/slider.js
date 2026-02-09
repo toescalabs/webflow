@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slideInterval = setInterval(nextSlide, slideSpeed);
     }
 
-    // 6. Initialize
+    // Initialize
     updateSlider();
     startAutoPlay();
 });
