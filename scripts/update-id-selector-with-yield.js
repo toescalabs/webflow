@@ -11,14 +11,22 @@ const getYieldsFor = ({
   typeUniverse
 }) => {
   var routeParam = 'recommendationYields';
+  const startDate = year + '-' + month;
+  const data = { year, month, risk, typeUniverse, 'start-yyyy-mm': startDate};
   if (portfolioType === 'harryIpsa') routeParam = 'nationalStocksYields';
   if (portfolioType === 'wallet') routeParam = 'walletYields';
+  if (portfolioType === 'privateDebt') {
+  	routeParam = "universeProfileYields"
+    data.universe = 21
+    data.profile = 1
+    data.currency = "CLP"
+		data.frequency = "months"
+  }
   const url = `${DEFAULT_URL}${routeParam}`;
-  const startDate = `${year}-${month}`;
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: JSON.stringify({ year, month, risk, typeUniverse, 'start-yyyy-mm': startDate}),
+    body: JSON.stringify(data),
     redirect: 'follow'
   };
   return fetch(url, requestOptions)

@@ -1,16 +1,42 @@
 # webflow
 
+Scripts y estilos custom del sitio de Holdo en Webflow (proyecto `holdo-2.0`).
 
-El proceso para trabajar en este repo es modificar archivos y probarlos en webflow haciendo deploy a holdo-2.0 subiendo los archivos a un CDN usando https://www.jsdelivr.com/github
+## Cómo llegan a producción
 
+No hay build ni deploy. Webflow carga cada archivo directo desde este repo vía
+[jsDelivr](https://www.jsdelivr.com/github), con una URL de la forma:
 
-Para esto, podemos probar usando el archivo de la siguiente forma:
+```
+https://cdn.jsdelivr.net/gh/toescalabs/webflow@<tag | rama | commit>/<ruta>
+```
 
-archivo.rama.vX.X.X.js
+Lo que va después de `@` decide qué versión se sirve. **Producción siempre apunta a un tag**
+(`@v1.0.0`), nunca a una rama: un tag no cambia, así que producción solo se mueve cuando alguien
+edita la URL en Webflow. Una rama se mueve con cada push (y jsDelivr la cachea, así que el cambio
+tarda en verse).
 
-Con eso no sobreescribirá versiones oficiales.
+## Flujo de trabajo
 
-Luego al estar probado y todo bien, se sube a main y con eso se actualiza en webflow y en el repo la versión a la correspondiente. (Volviendo a nombrar la rama main).
+1. Rama desde `develop` y cambios.
+2. Probar en Webflow apuntando la URL a la rama (`@mi-rama/scripts/archivo.js`), idealmente en
+   una página o el staging de Webflow, no en una página publicada.
+3. PR a `develop` y merge.
+4. Crear un tag nuevo sobre `develop` (`git tag v1.1.0 && git push origin v1.1.0`).
+5. En el custom code de Webflow, cambiar `@vX.Y.Z` por el tag nuevo en las URLs que correspondan
+   y publicar.
 
+Para volver atrás basta con apuntar de nuevo al tag anterior.
 
-Por hacer: Ver para no cambiar el nombre de la rama main.
+## Archivos
+
+| Archivo | Qué hace |
+|---|---|
+| `scripts/update-id-selector-with-yield.js` | Rentabilidades por perfil en selectores (recomendaciones, Harry IPSA, Wallet, Deuda Privada) |
+| `scripts/update-chart.js` | Gráfico de rentabilidad histórica |
+| `scripts/cursor-effect.js` | Efecto visual del cursor |
+| `scripts/slider.js` + `css/slider.css` | Slider |
+| `css/blog.css` | Estilos del blog |
+
+Los datos salen de la API de rentabilidades
+(`https://91o7sqo7s3.execute-api.us-east-1.amazonaws.com/prod/`).
