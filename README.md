@@ -32,7 +32,7 @@ Para volver atrás basta con apuntar de nuevo al tag anterior.
 
 | Archivo | Qué hace |
 |---|---|
-| `scripts/update-id-selector-with-yield.js` | Rentabilidades por perfil en selectores (recomendaciones, Harry IPSA, Wallet, Deuda Privada) |
+| `scripts/update-id-selector-with-yield.js` | Rentabilidades por perfil en selectores (recomendaciones, Harry IPSA, Wallet, Deuda Privada, Smart CLP) |
 | `scripts/update-chart.js` | Gráfico de rentabilidad histórica |
 | `scripts/cursor-effect.js` | Efecto visual del cursor |
 | `scripts/slider.js` + `css/slider.css` | Slider |
