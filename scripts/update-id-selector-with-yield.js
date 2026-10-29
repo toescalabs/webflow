@@ -22,6 +22,13 @@ const getYieldsFor = ({
     data.currency = "CLP"
 		data.frequency = "months"
   }
+  // Smart CLP solo tiene perfiles 1 a 3 (el cliente los ve como 2, 4 y 5)
+  if (portfolioType === 'smartCLP') {
+    routeParam = "universeProfileYields"
+    data.universe = 20
+    data.profile = risk
+    data.frequency = "months"
+  }
   const url = `${DEFAULT_URL}${routeParam}`;
   const requestOptions = {
     method: 'POST',
